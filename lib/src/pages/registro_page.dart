@@ -3,11 +3,11 @@ import 'package:formvalidation/src/bloc/provider.dart';
 import 'package:formvalidation/src/providers/usuario_provider.dart';
 import 'package:formvalidation/src/utils/utils.dart';
 
-class LoginPage extends StatelessWidget {
-
-  // instancia de usuario provider 
-  final usuarioProvider = new UsuarioProvider();
+class RegistroPage extends StatelessWidget {
   
+  // instancia de usuarioProvider
+  final usuarioProvider = new UsuarioProvider();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +23,7 @@ class LoginPage extends StatelessWidget {
 
  Widget _loginForm (BuildContext context) {
 
-  //  instancia del provider
+   // instancia del provider
    final bloc = Provider.of(context);
 
    final size = MediaQuery.of(context).size;
@@ -60,7 +60,7 @@ class LoginPage extends StatelessWidget {
           ),
           child: Column(
             children: <Widget>[
-              Text('Ingreso', style:  TextStyle(fontSize: 20.0)),
+              Text('Crear una cuenta', style:  TextStyle(fontSize: 20.0)),
               SizedBox(height: 40.0),
               _crearEmail(bloc),
               SizedBox(height: 30.0),
@@ -72,8 +72,8 @@ class LoginPage extends StatelessWidget {
         ),
 
         FlatButton( 
-          child: Text('Crear una nueva cuenta'),
-          onPressed: ()=> Navigator.pushReplacementNamed(context, 'registro'),
+          child: Text('¿Ya tienes una cuenta?'),
+          onPressed: ()=> Navigator.pushReplacementNamed(context, 'login'),
 
         ),
         SizedBox(height: 50.0),
@@ -163,11 +163,11 @@ class LoginPage extends StatelessWidget {
             textColor: Colors.white,
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
-              child: Text('Ingresar'),
+              child: Text('Crear Cuenta'),
               
            ),
            // si el snaphot tiene data, retornar una función, de lo contrario null.
-           onPressed: snapshot.hasData ? ()=> _login(bloc, context) : null,
+           onPressed: snapshot.hasData ? ()=> _register(bloc, context) : null,
    );
 
 
@@ -176,18 +176,11 @@ class LoginPage extends StatelessWidget {
 
  }
 
+ // lo que sucederá al presionar el botón de Crear cuenta
+ _register(LoginBloc bloc, BuildContext context) async {
+   final info = await usuarioProvider.nuevoUsuario(bloc.email, bloc.password);
 
- _login(LoginBloc bloc, BuildContext context)async{
-   // esta es la forma de obtener el email y contraseña del loginbloc.
-   print('=========================');
-   print('Email: ${bloc.email}');
-   print('Password: ${bloc.password}');
-   print('=========================');
 
-   // enviarle email y password al método login de usuarioProvider
-   Map info = await usuarioProvider.login(bloc.email, bloc.password);
-   
-   //si el mapa info retorna 'ok':true, todo está bien y voy a la pantalla home.
    if (info['ok']){
     Navigator.pushReplacementNamed(context, 'home');
    } else {
@@ -195,7 +188,7 @@ class LoginPage extends StatelessWidget {
      mostrarAlerta(context, info['mensaje']);
    }
 
-
+  //  Navigator.pushReplacementNamed(context, 'home');
 
  }
 
