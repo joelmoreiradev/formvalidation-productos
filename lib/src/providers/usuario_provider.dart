@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 
 class UsuarioProvider {
 
-  final String _firebaseApiKey = 'AIzaSyCRzQDIh_lO_qWtetgEwXGk5FSksZLketA'; // API KEY que usará la url
+  final String _firebaseApiKey = 'YOUR_FIREBASE_API_KEY'; // API KEY que usará la url
   final _prefs = new PreferenciasUsuario();
 
   // función login

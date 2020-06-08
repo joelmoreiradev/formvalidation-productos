@@ -109,7 +109,7 @@ class ProductosProvider {
 
 
   Future<String> subirImagen(File imagen) async {
-    final url = Uri.parse('https://api.cloudinary.com/v1_1/dzbtf1rpi/image/upload?upload_preset=iqrmdkiw');
+    final url = Uri.parse('https://api.cloudinary.com/v1_1/dzbtf1rpi/image/upload?upload_preset=YOUR_CLODINARY_PRESET_HERE');
     final mimeType = mime(imagen.path).split('/'); // image/jpg
 
     final imageUploadRequest = http.MultipartRequest(
